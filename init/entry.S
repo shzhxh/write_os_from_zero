@@ -22,7 +22,7 @@ kern_entry:
 	j primary_cpu_entry
 
 primary_cpu_entry:
-	tail kern_init
+	tail kern_init 
 
 secondary_cpu_entry:
-	j secondary_cpu_entry
+	wfi

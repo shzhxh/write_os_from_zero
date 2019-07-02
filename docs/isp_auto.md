@@ -1,3 +1,31 @@
+- isp: in system programming
+- iap: in application programming
+
+### 第一步：参数分析
+
+1. 其它参数使用默认值即可，但必须给出内核的位置
+2. 创建MAIXLoader对象，此对象用以实现bootloader的功能
+
+### 第二步：Greeting
+
+1. 首先把SoC设置为isp模式(在线系统编程，Serial.dts与IO_16引脚对应，置为True即可)。另，Serial.rts与RESET引脚对应，置为True是引发系统重启。
+2. 执行greeting。即向端口写入15个字节。
+
+### 第三步：把bootloader和kernel刷入闪存
+
+1. 获取内核二进制文件的句柄
+2. 如指定bootloader则刷入bootloader，否则刷入默认bootloader(ISP_PROG)
+3. boot
+4. flash_greeting
+5. init_flash
+6. flash_firmware
+
+### 第四步：启动
+
+通过设置端口的rts为True来实现重启的功能
+
+### 附录：bootloader分析
+
 在isp_auto.py里有段代码ISP_PROG是刷入到flash的bootloader，它都做了点啥呢？
 
 如下做了点尝试，但汇编代码难以理解，不再进行后续分析。
@@ -5,7 +33,7 @@
 首先，把这段代码重定向到文件，并反汇编出来。
 
 ```
-# 以wb模式打开一个文件out.bin，然后用write方法写入到文件中
+# 以wb模式打开一个文件out.bin，然后用write方法写入到out.bin
 hexdump -C out.bin > out.hex
 objdump -D -b binnary -m riscv:rv64 out.bin > out.asm
 ```
@@ -54,3 +82,5 @@ e4:		跳转到0x473c
 ##### 0x8d78(gp)
 
 最高到0x85ac，无此区域。
+
+### 
