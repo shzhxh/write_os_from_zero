@@ -54,3 +54,7 @@ proj1的目的是实现一个可运行的系统，打印“Hello World”出来�
 - rtthread_startup --> rt_hw_board_init --> rt_hw_clint_ipi_enable
 
   此函数做的事仅仅是开启软中断
+
+#### Linux对于中断的管理
+
+调用次序似乎是`_start-->.Lsecondary_start-->smp_callin-->trap_init-->handle_exception`

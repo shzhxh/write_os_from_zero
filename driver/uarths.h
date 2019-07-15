@@ -64,7 +64,17 @@ volatile uarths_t *const uarths = (volatile uarths_t *)0x38000000U;
  * @return	0:success, other:fail
  */
 void uarths_init(void){
-	
+	// FIXME : need to get the real frequency of CPU
+#if 0
+	uint32_t freq = 26000000UL;
+	uint16_t div = freq / 115200 - 1;
+
+	uarths->div.div = div;
+#endif
+	uarths->txctrl.txen = 1;
+	uarths->txctrl.txcnt = 0;
+	uarths->ip.txwm = 1;
+	uarths->ie.txwm = 0;
 }
 
 /*
@@ -75,7 +85,7 @@ void uarths_init(void){
 int uarths_putchar(char c){
 	while(uarths->txdata.full) continue;
 	uarths->txdata.data = (uint8_t) c;
-	return(c & 0xff);
+	return 0;
 }
 
 /*
@@ -84,7 +94,9 @@ int uarths_putchar(char c){
  * @return	0 : success, other : fail
  */
 int uarths_puts(const char *s){
-	while(*s) uarths_putchar(*s++);
+	while(*s){
+	       if(uarths_putchar(*s++) != 0) return -1;
+	}
 	return 0;
 }
 
