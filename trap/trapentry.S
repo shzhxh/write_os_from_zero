@@ -83,10 +83,6 @@ __alltraps:
     csrr a1, mepc
     mv a2, sp
     call trap
-    csrw mepc, a0
-
-    li t0, MSTATUS_MPP
-    csrs mstatus, t0
 
     RESTORE_ALL
 
