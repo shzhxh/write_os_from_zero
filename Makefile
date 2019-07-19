@@ -67,7 +67,7 @@ match = $(shell echo $(2) | $(AWK) '{for(i=1;i<=NF;i++){if(match("$(1)","^"$$(i)
 
 KINCLUDE	+= driver/ libs/ 
 
-KSRCDIR		+= init libs driver
+KSRCDIR		+= init libs driver trap
 
 KCFLAGS		+= $(addprefix -I,$(KINCLUDE))
 

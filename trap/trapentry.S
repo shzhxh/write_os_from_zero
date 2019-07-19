@@ -35,7 +35,6 @@
     STORE x29, 29*REGBYTES(sp)
     STORE x30, 30*REGBYTES(sp)
     STORE x31, 31*REGBYTES(sp)
-    STORE x32, 32*REGBYTES(sp)
     .endm
 
     .macro RESTORE_ALL
@@ -70,7 +69,6 @@
     LOAD x29, 29*REGBYTES(sp)
     LOAD x30, 30*REGBYTES(sp)
     LOAD x31, 31*REGBYTES(sp)
-    LOAD x32, 32*REGBYTES(sp)
 
     addi sp, sp, 32*REGBYTES
     .endm

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "encoding.h"
 
 uintptr_t trap(uintptr_t mcause, uintptr_t epc, uintptr_t *sp){
