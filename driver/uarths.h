@@ -57,47 +57,27 @@ typedef struct _uarths{
 	_div_t	div;		// offset 0x18, baud rate divisor
 } __attribute__((packed, aligned(4))) uarths_t;
 
-volatile uarths_t *const uarths = (volatile uarths_t *)0x38000000U;
+extern volatile uarths_t *const uarths;
 
 /*
  * brief	Initialization UART
  * @return	0:success, other:fail
  */
-void uarths_init(void){
-	// FIXME : need to get the real frequency of CPU
-#if 0
-	uint32_t freq = 26000000UL;
-	uint16_t div = freq / 115200 - 1;
-
-	uarths->div.div = div;
-#endif
-	uarths->txctrl.txen = 1;
-	uarths->txctrl.txcnt = 0;
-	uarths->ip.txwm = 1;
-	uarths->ie.txwm = 0;
-}
+void uarths_init(void);
 
 /*
  * brief	Put a char to UART
  * @c		the char to put
  * @return	@c : success, EOF : fail
  */
-int uarths_putchar(char c){
-	while(uarths->txdata.full) continue;
-	uarths->txdata.data = (uint8_t) c;
-	return 0;
-}
+int uarths_putchar(char c);
 
 /*
  * brief	Send a string to UART
  * @s		the string to send
  * @return	0 : success, other : fail
  */
-int uarths_puts(const char *s){
-	while(*s){
-	       if(uarths_putchar(*s++) != 0) return -1;
-	}
-	return 0;
-}
+int uarths_puts(const char *s);
+
 
 #endif /* __DRIVER_UARTHS_H__ */

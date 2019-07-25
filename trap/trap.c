@@ -1,15 +1,26 @@
 #include <stdint.h>
 #include "encoding.h"
+#include "clint.h"
+#include "uarths.h"
+
+# define TICK_NUM 100
+
+extern volatile uint64_t ticks;        // tick counter
+extern volatile uint64_t tick_cycles;
 
 uintptr_t trap(uintptr_t mcause, uintptr_t epc, uintptr_t *sp){
     intptr_t cause = (mcause << 1) >> 1;
-    
+    uint64_t core_id = current_coreid();
+
     /* handle interrupt */
     if(mcause < 0){
         switch(cause){
             case IRQ_M_SOFT:
                 break;
             case IRQ_M_TIMER:
+                clint->mtimecmp[core_id] += tick_cycles;
+                uarths_puts("szx: intr happens\n"); // szx debug 
+                if(++ticks % TICK_NUM == 0) uarths_puts("ticks\n"); 
                 break;
             case IRQ_M_EXT:
                 break;
