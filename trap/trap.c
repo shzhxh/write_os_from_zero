@@ -3,15 +3,17 @@
 #include "clint.h"
 #include "uarths.h"
 
-# define TICK_NUM 100
+# define TICK_NUM 1000000
 
 extern volatile uint64_t ticks;        // tick counter
 extern volatile uint64_t tick_cycles;
 
 uintptr_t trap(uintptr_t mcause, uintptr_t epc, uintptr_t *sp){
-    intptr_t cause = (mcause << 1) >> 1;
+    intptr_t cause = mcause;
+    (cause << 1) >> 1;
     uint64_t core_id = current_coreid();
 
+    if(++ticks % TICK_NUM == 0) uarths_puts("a");   // szx debug
     /* handle interrupt */
     if(mcause < 0){
         switch(cause){
