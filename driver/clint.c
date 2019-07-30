@@ -10,7 +10,7 @@ int clint_timer_init(void){
     unsigned long core_id = current_coreid();
     ticks = 0;
     /* k210 cpu freq: 400MHz, tick per sec : 100 */
-    tick_cycles = 390000000/10 - 1;
+    tick_cycles = 390000000/100 - 1;
 
     clint->mtimecmp[core_id] = clint->mtime + tick_cycles;
 

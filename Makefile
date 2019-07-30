@@ -100,7 +100,6 @@ TARGETS: $(TARGETS)
 k210: $(KERNEL)
 	$(OBJCOPY) -O binary $^ bin/kernel.bin
 	sudo python3 tools/isp_auto.py bin/kernel.bin | tee $(DATE).log
-	sleep 1
 	sudo minicom -D /dev/ttyUSB0
 
 .PHONY: clean
