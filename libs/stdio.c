@@ -4,15 +4,14 @@
 
 void printnum(uint64_t n){
     int mod;
-    char s[16];
+    char s[17]={0}, hex[16]="0123456789abcdef";
 
-    for(int i=0; i<16 ; i++){
-        if(n==0) s[15-i]='0'; 
+    for(int i=15; i>=0 ; i--){
+        if(n==0) s[i]=hex[0]; 
         else{
             mod = n % 16;
             n = n / 16;
-            if(mod < 10) s[15-i]='0'+mod;
-            else s[15-i]='a'+mod-10;
+            s[i]=hex[mod];
         }
     }
     uarths_puts(s);
