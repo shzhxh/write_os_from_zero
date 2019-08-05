@@ -341,13 +341,12 @@ typedef struct _sysctl_power_sel
  *              controller, timer controller, WDT controller and sleep
  *              controller.
  */
-
 typedef struct _sysctl{
     sysctl_git_id_t     git_id;     // 0 (0x00):Git short commit id
     sysctl_clk_freq_t   clk_freq;   // 1 (0x04):System clock base frequency
     sysctl_pll0_t       pll0;       // 2 (0x08):PLL0 controller
-    sysctl_pll1_t       pll1;       // 3 (0x0c):PLL0 controller
-    sysctl_pll2_t       pll2;       // 4 (0x10):PLL0 controller
+    sysctl_pll1_t       pll1;       // 3 (0x0c):PLL1 controller
+    sysctl_pll2_t       pll2;       // 4 (0x10):PLL2 controller
     uint32_t            resv5;      // 5 (0x14):Reserved
     sysctl_pll_lock_t   pll_lock;   // 6 (0x18):PLL lock tester
     sysctl_rom_error_t  rom_error;  // 7 (0x1c):AXI ROM detector
@@ -375,9 +374,74 @@ typedef struct _sysctl{
     uint32_t            resv29;     // 29 (0x74): Reserved
     uint32_t            resv30;     // 30 (0x78): Reserved
     uint32_t            resv31;     // 31 (0x7c): Reserved
-
 }__attribute__((packed, aligned(4))) sysctl_t;
 
-volatile sysctl_t *const sysctl = (volatile sysctl_t *)0x50440000U;
+extern volatile sysctl_t *const sysctl;
+
+typedef enum _sysctl_pll_t{
+    SYSCTL_PLL0;
+    SYSCTL_PLL1;
+    SYSCTL_PLL2;
+    SYSCTL_PLL_MAX;
+}
+
+/**
+ * @brief      System controller clock id
+ */
+typedef enum _sysctl_clock_t
+{
+    SYSCTL_CLOCK_PLL0,
+    SYSCTL_CLOCK_PLL1,
+    SYSCTL_CLOCK_PLL2,
+    SYSCTL_CLOCK_CPU,
+    SYSCTL_CLOCK_SRAM0,
+    SYSCTL_CLOCK_SRAM1,
+    SYSCTL_CLOCK_APB0,
+    SYSCTL_CLOCK_APB1,
+    SYSCTL_CLOCK_APB2,
+    SYSCTL_CLOCK_ROM,
+    SYSCTL_CLOCK_DMA,
+    SYSCTL_CLOCK_AI,
+    SYSCTL_CLOCK_DVP,
+    SYSCTL_CLOCK_FFT,
+    SYSCTL_CLOCK_GPIO,
+    SYSCTL_CLOCK_SPI0,
+    SYSCTL_CLOCK_SPI1,
+    SYSCTL_CLOCK_SPI2,
+    SYSCTL_CLOCK_SPI3,
+    SYSCTL_CLOCK_I2S0,
+    SYSCTL_CLOCK_I2S1,
+    SYSCTL_CLOCK_I2S2,
+    SYSCTL_CLOCK_I2C0,
+    SYSCTL_CLOCK_I2C1,
+    SYSCTL_CLOCK_I2C2,
+    SYSCTL_CLOCK_UART1,
+    SYSCTL_CLOCK_UART2,
+    SYSCTL_CLOCK_UART3,
+    SYSCTL_CLOCK_AES,
+    SYSCTL_CLOCK_FPIOA,
+    SYSCTL_CLOCK_TIMER0,
+    SYSCTL_CLOCK_TIMER1,
+    SYSCTL_CLOCK_TIMER2,
+    SYSCTL_CLOCK_WDT0,
+    SYSCTL_CLOCK_WDT1,
+    SYSCTL_CLOCK_SHA,
+    SYSCTL_CLOCK_OTP,
+    SYSCTL_CLOCK_RTC,
+    SYSCTL_CLOCK_ACLK = 40,
+    SYSCTL_CLOCK_HCLK,
+    SYSCTL_CLOCK_IN0,
+    SYSCTL_CLOCK_MAX
+} sysctl_clock_t;
+
+/*
+ * sysctl_pll_get_freq : get PLL frequency
+ */
+uint32_t sysctl_pll_get_freq(sysctl_pll_t pll);
+
+/*
+ * sysctl_clock_get_greq : get base clock frequency by clock id
+ */
+uint32_t sysctl_clock_get_freq(sysctl_clock_t clock);
 
 #endif /* __DRIVER_SYSCTL_H__ */
