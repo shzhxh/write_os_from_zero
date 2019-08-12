@@ -39,3 +39,75 @@ uint32_t sysctl_pll_get_freq(sysctl_pll_t pll){
     freq_out = (double)freq_in / (double)nr * (double)nf / (double)od;
     return freq_out;
 }
+
+uint32_t sysctl_clock_get_freq(sysctl_clock_t clock){
+    uint32_t source=0, result=0;
+
+    switch(clock){
+        case SYSCTL_CLOCK_IN0:
+            source = SYSCTRL_CLOCK_FREQ_IN0;
+            result = source;
+            break;
+        case SYSCTL_CLOCK_PLL0:
+            source = sysctl_pll_get_freq(SYSCTL_CLOCK_PLL0);
+            result = source;
+            break;
+        case SYSCTL_CLOCK_PLL1:
+            source = sysctl_pll_get_freq(SYSCTL_CLOCK_PLL1);
+            result = source;
+            break;
+        case SYSCTL_CLOCK_PLL2:
+            source = sysctl_pll_get_freq(SYSCTL_CLOCK_PLL2);
+            result = source;
+            break;
+        case SYSCTL_CLOCK_CPU:
+            if(sysctl->clk_sel0.aclk_sel){
+                source = sysctl_pll_get_freq(SYSCTL_PLL0) /
+                    (2ULL << sysctl->clk_sel0.aclk_divider_sel);
+            }
+            else{
+                source = SYSCTRL_CLOCK_FREQ_IN0;
+            }
+            result = source;
+            break;
+		case SYSCTL_CLOCK_SRAM0:
+		case SYSCTL_CLOCK_SRAM1:
+		case SYSCTL_CLOCK_APB0:
+		case SYSCTL_CLOCK_APB1:
+		case SYSCTL_CLOCK_APB2:
+		case SYSCTL_CLOCK_ROM:
+		case SYSCTL_CLOCK_DMA:
+		case SYSCTL_CLOCK_AI:
+		case SYSCTL_CLOCK_DVP:
+		case SYSCTL_CLOCK_FFT:
+		case SYSCTL_CLOCK_GPIO:
+		case SYSCTL_CLOCK_SPI0:
+		case SYSCTL_CLOCK_SPI1:
+		case SYSCTL_CLOCK_SPI2:
+		case SYSCTL_CLOCK_SPI3:
+		case SYSCTL_CLOCK_I2S0:
+		case SYSCTL_CLOCK_I2S1:
+		case SYSCTL_CLOCK_I2S2:
+		case SYSCTL_CLOCK_I2C0:
+		case SYSCTL_CLOCK_I2C1:
+		case SYSCTL_CLOCK_I2C2:
+		case SYSCTL_CLOCK_UART1:
+		case SYSCTL_CLOCK_UART2:
+		case SYSCTL_CLOCK_UART3:
+		case SYSCTL_CLOCK_AES:
+		case SYSCTL_CLOCK_FPIOA:
+		case SYSCTL_CLOCK_TIMER0:
+		case SYSCTL_CLOCK_TIMER1:
+		case SYSCTL_CLOCK_TIMER2:
+		case SYSCTL_CLOCK_WDT0:
+		case SYSCTL_CLOCK_WDT1:
+		case SYSCTL_CLOCK_SHA:
+		case SYSCTL_CLOCK_OTP:
+		case SYSCTL_CLOCK_RTC:
+		case SYSCTL_CLOCK_ACLK:
+		case SYSCTL_CLOCK_HCLK:
+        default:
+            break;
+        }
+    return result;
+}

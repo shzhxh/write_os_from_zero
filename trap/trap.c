@@ -4,7 +4,7 @@
 #include "uarths.h"
 #include "stdio.h"
 
-# define TICK_NUM 100
+# define TICK_NUM 1
 
 extern volatile uint64_t ticks;        // tick counter
 extern volatile uint64_t tick_cycles;

@@ -9,7 +9,7 @@ volatile uarths_t *const uarths = (volatile uarths_t *)0x38000000U;
 void uarths_init(void){
 	// FIXME : need to get the real frequency of CPU
 #if 0
-	uint32_t freq = 26000000UL;
+	uint32_t freq = 390000000UL;
 	uint16_t div = freq / 115200 - 1;
 
 	uarths->div.div = div;

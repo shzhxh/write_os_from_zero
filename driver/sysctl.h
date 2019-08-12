@@ -1,6 +1,8 @@
 #ifndef __DRIVER_SYSCTL_H__
 #define __DRIVER_SYSCTL_H__
 
+#include <stdint.h>
+
 typedef struct _sysctl_git_id
 {
     uint32_t git_id : 32;
@@ -379,11 +381,11 @@ typedef struct _sysctl{
 extern volatile sysctl_t *const sysctl;
 
 typedef enum _sysctl_pll_t{
-    SYSCTL_PLL0;
-    SYSCTL_PLL1;
-    SYSCTL_PLL2;
-    SYSCTL_PLL_MAX;
-}
+    SYSCTL_PLL0,
+    SYSCTL_PLL1,
+    SYSCTL_PLL2,
+    SYSCTL_PLL_MAX,
+} sysctl_pll_t;
 
 /**
  * @brief      System controller clock id
