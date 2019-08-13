@@ -4,7 +4,7 @@
 #include "uarths.h"
 #include "stdio.h"
 
-# define TICK_NUM 1
+# define TICK_NUM 5
 
 extern volatile uint64_t ticks;        // tick counter
 extern volatile uint64_t tick_cycles;
@@ -21,7 +21,7 @@ uintptr_t trap(uint64_t mcause, uint64_t epc, uint64_t *sp){
                 break;
             case IRQ_M_TIMER:
                 clint->mtimecmp[core_id] += tick_cycles;
-                if(++ticks % TICK_NUM == 0) uarths_puts("ticks\n"); 
+                if(++ticks % TICK_NUM == 0) uarths_puts("ticks\r\n"); 
                 break;
             case IRQ_M_EXT:
                 uarths_puts("irq_ext\n");
