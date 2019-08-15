@@ -9,6 +9,8 @@ kern_entry:
 	csrw mideleg, 0
 	csrw medeleg, 0
 	csrw mie, 0		// Mask all interrupts
+	la t0, __alltraps
+	csrw mtvec, t0
 
 	csrr a0, mhartid	// Get CPU id
 

@@ -28,6 +28,8 @@ make k210
 
 #### 开发进度
 
-- [ ] [proj2](docs/proj2.md)：中断管理
+- [ ] [proj2-2](docs/proj2.md)：核间中断
+
+- [x] [proj2-1](docs/proj2.md)：计时器中断
 
 - [x] [proj1](docs/proj1.md)：打印Hello World

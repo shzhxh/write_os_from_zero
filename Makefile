@@ -67,7 +67,7 @@ match = $(shell echo $(2) | $(AWK) '{for(i=1;i<=NF;i++){if(match("$(1)","^"$$(i)
 
 KINCLUDE	+= driver/ libs/ 
 
-KSRCDIR		+= init libs driver
+KSRCDIR		+= init libs driver trap
 
 KCFLAGS		+= $(addprefix -I,$(KINCLUDE))
 
@@ -100,7 +100,6 @@ TARGETS: $(TARGETS)
 k210: $(KERNEL)
 	$(OBJCOPY) -O binary $^ bin/kernel.bin
 	sudo python3 tools/isp_auto.py bin/kernel.bin | tee $(DATE).log
-	sleep 1
 	sudo minicom -D /dev/ttyUSB0
 
 .PHONY: clean
