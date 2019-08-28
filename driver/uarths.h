@@ -1,7 +1,7 @@
 #ifndef __DRIVER_UARTHS_H__
 #define __DRIVER_UARTHS_H__
 
-#include <unistd.h>
+#include <stdint.h>
 
 typedef struct _txdata{
 	uint32_t data:8;	// [0:7] data

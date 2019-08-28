@@ -2,7 +2,7 @@ SPACE	:= $(EMPTY) $(EMPTY)
 SLASH	:= /
 
 ifndef GCCPREFIX
-GCCPREFIX := riscv64-unknown-elf-
+GCCPREFIX := riscv64-linux-gnu-
 endif
 
 # eliminate default suffix rules

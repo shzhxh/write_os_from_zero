@@ -12,8 +12,24 @@
 ##### 前提条件
 
 1. 电脑上要安装Linux系统
+
 2. Linux系统上要安装gcc for riscv64工具链
+
+   ```
+   sudo apt install riscv64-linux-gnu
+   ```
+
+   
+
 3. Linux系统上要安装python3、minicom、git
+
+   ```
+   pip3 install pyserial
+   sudo apt install minicom
+   ```
+
+   
+
 4. 要有k210的开发板
 
 ##### 运行
