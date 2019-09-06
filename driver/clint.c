@@ -20,3 +20,8 @@ int clint_timer_init(void){
 
     return 0;
 }
+
+void clint_ipi_enable(void){
+    set_csr(mie, MIP_MSIP);
+    set_csr(mstatus, MSTATUS_MIE);
+}

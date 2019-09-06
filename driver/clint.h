@@ -17,6 +17,14 @@ typedef struct _clint{
 
 extern volatile clint_t* const clint;
 
+/*
+ * Start the CLINT timer and initialize ticks
+ */
 int clint_timer_init(void);
+
+/*
+ * Enable local interprocessor interrupt
+ */
+void clint_ipi_enable(void);
 
 #endif /* __DRIVER_CLINT_H__ */
